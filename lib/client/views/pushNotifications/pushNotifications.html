@@ -1,0 +1,14 @@
+<template name="pushNotificationsCheckbox">
+  <div class="push-notifications-checkbox">
+    <input disabled type="checkbox" id='push-button' class="{{classes}}">
+    <label for="push-button">{{label}}</label>
+  </div>
+</template>
+
+<template name="pushNotificationsTest">
+  {{#if show}}
+  <div class="push-notifications-test">
+    <button class="{{classes}}">{{label}}</button>
+  </div>
+  {{/if}}
+</template>
