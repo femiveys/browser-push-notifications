@@ -1,14 +1,12 @@
 <template name="pushNotificationsCheckbox">
-  <div class="push-notifications-checkbox">
-    <input disabled type="checkbox" id='push-button' class="{{classes}}">
+  <div class="push-notifications-checkbox {{classes}}">
+    <input disabled type="checkbox" id='push-button'>
     <label for="push-button">{{label}}</label>
   </div>
 </template>
 
 <template name="pushNotificationsTest">
   {{#if show}}
-  <div class="push-notifications-test">
-    <button class="{{classes}}">{{label}}</button>
-  </div>
+  <button class="push-notifications-test {{classes}}">{{label}}</button>
   {{/if}}
 </template>

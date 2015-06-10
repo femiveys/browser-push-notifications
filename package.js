@@ -2,8 +2,8 @@ Package.describe({
   name: 'femiveys:chrome-push-notifications',
   version: '0.1.0',
   summary: 'Add push notifications for Chrome browsers',
-  git: 'git@github.com:femiveys/meteor-chrome-push-notifications.git',
-  documentation: 'README.md'
+  git: 'git@github.com:femiveys/chrome-push-notifications.git',
+  // documentation: 'README.md'
 });
 
 both = ['client', 'server'];
@@ -18,8 +18,8 @@ Package.onUse(function(api) {
 
   api.addFiles(
   [
-    'lib/client/service-worker-registration.js',
-    'lib/client/subscription-manager.js',
+    'lib/client/serviceWorkerRegistration.js',
+    'lib/client/subscriptionManager.js',
     'lib/client/views/pushNotifications/pushNotifications.html',
     'lib/client/views/pushNotifications/pushNotifications.js',
   ],
