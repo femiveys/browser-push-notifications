@@ -41,6 +41,7 @@ Package.onUse(function(api) {
 
   api.addFiles('img/check.png', 'client', {isAsset: true});
   api.addFiles('img/error.png', 'client', {isAsset: true});
+  api.addFiles('serviceWorker.js', 'client', {isAsset: true});
 
   // api.export('PnSubscriptions', 'server')
 });
