@@ -39,6 +39,9 @@ Package.onUse(function(api) {
   ],
   both);
 
+  api.addFiles('img/check.png', 'client', {isAsset: true});
+  api.addFiles('img/error.png', 'client', {isAsset: true});
+
   // api.export('PnSubscriptions', 'server')
 });
 
