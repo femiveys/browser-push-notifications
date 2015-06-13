@@ -30,8 +30,8 @@ Package.onUse(function(api) {
   [
     'lib/client/serviceWorkerRegistration.js',
     'lib/client/subscriptionManager.js',
-    'lib/client/views/cpNotifications/cpNotifications.html',
-    'lib/client/views/cpNotifications/cpNotifications.js',
+    'lib/client/views/cpNotifications.html',
+    'lib/client/views/cpNotifications.js',
   ],
   'client');
 
