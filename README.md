@@ -52,13 +52,13 @@ A `notification` argument object can have following fields:
 
 ### Example
 ```javascript
-notification = {
+var notification = {
   title: "Notification title",
   message: "The body text of the notification",
   icon: "/img/smiley.png",
-}
+};
 
-userIds = ["HS7r7qhL2yrKtoZfs", "heN3BoGdKx7httKWB"];
+var userIds = ["HS7r7qhL2yrKtoZfs", "heN3BoGdKx7httKWB"];
 
 bpNotifications.send(notification, userIds);
 ```
