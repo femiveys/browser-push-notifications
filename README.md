@@ -1,5 +1,6 @@
 # Browser Push Notifications (for Meteor)
-Currently only from a Chrome browser to Android devices
+Send Browser Push Notifications in the most easy way.
+Currently only from a Chrome browser to Android devices.
 
 ## How to use
 ### Installation
