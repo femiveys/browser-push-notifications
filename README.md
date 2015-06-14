@@ -79,7 +79,9 @@ As we cannot yet send a payload with the push this is what we do to send a notif
 - Finally we show a push notification for every notification object returned by the API, using the data in the notification object.
 
 ## Cookies
-TODO
+When we use the API, this is a server side call, so we are not aware of the logged in user. To know the logged in user, we store his/her `meteor_user_id` in a cookie. There is another cookie that is set when the user logs in or out. On when his/her session is expired. This is maintained in the `meteor_token`.
+To prevent an attacker could read notifications of other users, knowing someones `subscriptionId` use the `meteor_user_id` cookie. Only a notification to a user, matching his/hers `meteor_user_id` with the `subscriptionId`, can be read.
+This means an attacker should know the `meteor_user_id` and the `subscriptionId` of the same user to read his/her notifications. This is not evident on an HTTPS connection.
 
 ## Service Worker considerations (only for experts)
 In theory it should be possible to package the Service Worker so it resides under `/packages/femiveys_browser-push-notifications/serviceWorker.js`. This would prevent the annoying step to copy `serviceWorker.js` to `/public`.
@@ -91,3 +93,6 @@ If you want to test this, you can uncomment the last line in `lib/both/constants
 - Set the `Service-Worker-Allowed` HTTP header to the `/packages/femiveys_browser-push-notifications` (see https://github.com/slightlyoff/ServiceWorker/issues/604).
  
 If anybody knows how to make this to work, help is welcome.
+
+### Credits
+This code has been based on the code from (https://github.com/taromero/meteor-chrome-push-notifications) but has been seroiously adapted and completed.
