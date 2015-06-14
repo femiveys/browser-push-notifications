@@ -1,11 +1,25 @@
 # Browser Push Notifications (for Meteor)
-Currently only from the Chrome browser to an Android device
+Currently only from a Chrome browser to Android devices
 
 ## How to use
 ### Installation
 1. Add the package: `meteor add femiveys:browser-push-notifications`
-2. Set the Google API key
+2. Set the Google API key (see below)
 3. Copy the Service Worker to the `/public` of your application
+
+## Google API key
+The preferred way to set your google API key is to use the `Meteor.settings` mechanism. See http://docs.meteor.com/#/full/meteor_settings.
+Start the Meteor instance with the `--settings` option. See `meteor help run` and `meteor mhelp deploy`.
+The packacge expects the key to be under `serviceConfigurations.google.key` in a settings JSON file. *I believe this should become the standard place to put API keys.*
+This is the preferred way because you might want to use different keys for different environments.
+
+Altenatively, you can also set the Google API key in `BrowserPushNotifications.key`. This has to be set in code that **only runs on the server** as you don't want this key to be visible or changeable on the client.
+
+## Options
+Options can be set in the BrowserPushNotifications object. There are only 2 options:
+- `key`: The Google API key. Defaults to `Meteor.settings.serviceConfigurations.google.key`. If you don't want to use `Meteor.settings` mechanism, you can override this key here. **This is not advised**.
+- `removeWhenArchived`: Defaults to `true`. If set to `false`, notifications will not be removed from the server after they have been pushed.
+**Options have to be set in code that only runs on the server**.
 
 ### Templates
 Following templates are available:
@@ -18,6 +32,7 @@ Following templates are available:
 - `{{> bpNotificationsTest}}`
   - Renders a push notifications test button.
   - This reactively only appears when push is available.
+  - When clicking on the button a push notification is sent to the current user.
   - Takes following options:
     - `label`: The label of the button. Defaults to `Test push`.
     - `class`: The HTML `class` property to pass to the button.
@@ -48,6 +63,10 @@ userIds = ["HS7r7qhL2yrKtoZfs", "heN3BoGdKx7httKWB"];
 bpNotifications.send(notification, userIds);
 ```
 
+## Archiving
+By default we archive notifications by removing them.
+In some cases it might be interesting to know when the notification has effectively been received. For this you need to use the `removeWhenArchived` option. See the "Options" section. This will update the notification, setting the `callbackAt` field to the current date. A notification is considered unread when `callbackAt = null`.
+
 ## How it works internally
 As of Chrome version 42, the [Push API](http://w3c.github.io/push-api/) and [Notification API](https://notifications.spec.whatwg.org/) are available to developers.
 This exactly what this package uses. It uses the techniques explained [here](http://updates.html5rocks.com/2015/03/push-notificatons-on-the-open-web)
@@ -59,23 +78,16 @@ As we cannot yet send a payload with the push this is what we do to send a notif
 - Every notification that has been requested through this API is archived so it cannot be shown again. See the "Archiving" section.
 - Finally we show a push notification for every notification object returned by the API, using the data in the notification object.
 
-## Google API key
-The preferred way to set your google API key is to use the `Meteor.settings` mechanism. See http://docs.meteor.com/#/full/meteor_settings.
-Start the Meteor instance with the `--settings` option. See `meteor help run` and `meteor mhelp deploy`.
-The packacge expects the key to be under `serviceConfigurations.google.key` in a settings JSON file. *I believe this should become the standard place to put API keys.*
-This is the preferred way because you might want to use different keys for different environments.
-
-Altenatively, you can also set the Google API key in `BrowserPushNotifications.key`. This has to be set in code that **only runs on the server** as you don't want this key to be visible or changeable on the client.
-
-## Options
-Options can be set in the BrowserPushNotifications object. There are only 2 options:
-- `key`: The Google API key. Defaults to `Meteor.settings.serviceConfigurations.google.key`. If you don't want to use `Meteor.settings` mechanism, you can override this key here. **This is not advised**.
-- `removeWhenArchived`: Defaults to `true`. If set to `false`, notifications will not be removed from the server after they have been pushed.
-**Options have to be set in code that only runs on the server**.
-
-## Archiving
-By default we archive notifications by removing them.
-In some cases it might be interesting to know when the notification has effectively been received. For this you need to use the `removeWhenArchived` option. See the "Options" section. This will update the notification, setting the `callbackAt` field to the current date. A notification is considered unread when `callbackAt = null`.
-
-## Service Worker considerations 
+## Cookies
 TODO
+
+## Service Worker considerations (only for experts)
+In theory it should be possible to package the Service Worker so it resides under `/packages/femiveys_browser-push-notifications/serviceWorker.js`. This would prevent the annoying step to copy `serviceWorker.js` to `/public`.
+All code is ready, but for me it didn't work (Chrome 43.0.2357.125).
+If you want to test this, you can uncomment the last line in `lib/both/constants.js`. The will do the following:
+- Change the scope of the Service Worker to: `/packages/femiveys_browser-push-notifications`
+- Register `/packages/femiveys_browser-push-notifications/serviceWorker.js` when activating push. (This file is already set as an asset.)
+- Make sure the route to the internal API is within the scope, more specifically: `/packages/femiveys_browser-push-notifications//bp_notifications/:subscription_id`
+- Set the `Service-Worker-Allowed` HTTP header to the `/packages/femiveys_browser-push-notifications` (see https://github.com/slightlyoff/ServiceWorker/issues/604).
+ 
+If anybody knows how to make this to work, help is welcome.
