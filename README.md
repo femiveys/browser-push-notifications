@@ -70,10 +70,10 @@ In some cases it might be interesting to know when the notification has effectiv
 
 ## How it works internally
 As of Chrome version 42, the [Push API](http://w3c.github.io/push-api/) and [Notification API](https://notifications.spec.whatwg.org/) are available to developers.
-This exactly what this package uses. It uses the techniques explained [here](http://updates.html5rocks.com/2015/03/push-notificatons-on-the-open-web)
+This exactly what this package applies. It uses the techniques explained [here](http://updates.html5rocks.com/2015/03/push-notificatons-on-the-open-web).
 
-As we cannot yet send a payload with the push this is what we do to send a notification:
-- We save the notification on the server
+As we cannot yet send a payload with the push, this is what we do to send a notification:
+- We save the bpNotification on the server
 - We request a push using the [Push API](http://w3c.github.io/push-api/)
 - When we receive a Notification (using the [Notification API](https://notifications.spec.whatwg.org/)), we call an internal API (under `/bp_notifications/:subscription_id`) returning a JSON with **all** notifications that have not been shown yet.
 - Every notification that has been requested through this API is archived so it cannot be shown again. See the "Archiving" section.
@@ -88,10 +88,10 @@ This means an attacker should know the `meteor_user_id` and the `subscriptionId`
 In theory it should be possible to package the Service Worker so it resides under `/packages/femiveys_browser-push-notifications/serviceWorker.js`. This would prevent the annoying step to copy `serviceWorker.js` to `/public`.
 All code is ready, but for me it didn't work (Chrome 43.0.2357.125).
 If you want to test this, you can uncomment the last line in `lib/both/constants.js`. The will do the following:
-- Change the scope of the Service Worker to: `/packages/femiveys_browser-push-notifications`
+- Change the scope of the ServiceWorker to: `/packages/femiveys_browser-push-notifications`
 - Register `/packages/femiveys_browser-push-notifications/serviceWorker.js` when activating push. (This file is already set as an asset.)
-- Make sure the route to the internal API is within the scope, more specifically: `/packages/femiveys_browser-push-notifications//bp_notifications/:subscription_id`
-- Set the `Service-Worker-Allowed` HTTP header to the `/packages/femiveys_browser-push-notifications` (see https://github.com/slightlyoff/ServiceWorker/issues/604).
+- Make sure the route to the internal API is within the scope, more specifically: `/packages/femiveys_browser-push-notifications/bp_notifications/:subscription_id`
+- Set the `Service-Worker-Allowed` HTTP header to `/packages/femiveys_browser-push-notifications` (see https://github.com/slightlyoff/ServiceWorker/issues/604).
  
 If anybody knows how to make this to work, help is welcome.
 
