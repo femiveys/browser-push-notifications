@@ -6,7 +6,7 @@ function showNotification(event) {
 
   event.waitUntil(
     event.target.registration.pushManager.getSubscription().then(function(subscription) {
-      var endpoint = event.target.registration.scope + 'p_notifications/'
+      var endpoint = event.target.registration.scope + 'bp_notifications/'
                    + encodeURIComponent(subscription.subscriptionId);
 
       // Since there is no payload data with the first version of push messages,

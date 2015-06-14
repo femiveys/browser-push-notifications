@@ -1,8 +1,8 @@
 Package.describe({
-  name: 'femiveys:chrome-push-notifications',
+  name: 'femiveys:browser-push-notifications',
   version: '0.3.0',
-  summary: 'Add Chrome to android push notifications',
-  git: 'git@github.com:femiveys/chrome-push-notifications.git',
+  summary: 'Add browser push notifications. Currently Chrome to android',
+  git: 'git@github.com:femiveys/browser-push-notifications.git',
   // documentation: 'README.md'
 });
 
@@ -30,8 +30,8 @@ Package.onUse(function(api) {
   [
     'lib/client/serviceWorkerRegistration.js',
     'lib/client/subscriptionManager.js',
-    'lib/client/views/cpNotifications.html',
-    'lib/client/views/cpNotifications.js',
+    'lib/client/views.html',
+    'lib/client/views.js',
   ],
   'client');
 
@@ -47,7 +47,5 @@ Package.onUse(function(api) {
   api.addFiles('img/check.png', 'client', {isAsset: true});
   api.addFiles('img/error.png', 'client', {isAsset: true});
   api.addFiles('serviceWorker.js', 'client', {isAsset: true});
-
-  // api.export('PnSubscriptions', 'server')
 });
 
