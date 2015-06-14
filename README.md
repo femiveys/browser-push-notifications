@@ -82,7 +82,7 @@ As we cannot yet send a payload with the push, this is what we do to send a noti
 ## Cookies
 When we use the API, this is a server side call, so we are not aware of the logged in user. To know the logged in user, we store his/her `meteor_user_id` in a cookie. There is another cookie that is set when the user logs in or out. On when his/her session is expired. This is maintained in the `meteor_token`.
 To prevent an attacker could read notifications of other users, knowing someones `subscriptionId` use the `meteor_user_id` cookie. Only a notification to a user, matching his/hers `meteor_user_id` with the `subscriptionId`, can be read.
-This means an attacker should know the `meteor_user_id` and the `subscriptionId` of the same user to read his/her notifications. This is not evident on an HTTPS connection.
+This means an attacker should know the `meteor_user_id` and the `subscriptionId` of the same user to read his/her notifications. This is not evident on an HTTPS connection. This is why the package depends on `force-ssl@1.0.4`.
 
 ## Service Worker considerations (only for experts)
 In theory it should be possible to package the Service Worker so it resides under `/packages/femiveys_browser-push-notifications/serviceWorker.js`. This would prevent the annoying step to copy `serviceWorker.js` to `/public`.
