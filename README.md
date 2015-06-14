@@ -20,6 +20,7 @@ Altenatively, you can also set the Google API key in `BrowserPushNotifications.k
 Options can be set in the BrowserPushNotifications object. There are only 2 options:
 - `key`: The Google API key. Defaults to `Meteor.settings.serviceConfigurations.google.key`. If you don't want to use `Meteor.settings` mechanism, you can override this key here. **This is not advised**.
 - `removeWhenArchived`: Defaults to `true`. If set to `false`, notifications will not be removed from the server after they have been pushed.
+
 **Options have to be set in code that only runs on the server**.
 
 ### Templates
