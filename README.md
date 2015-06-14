@@ -5,10 +5,10 @@ Currently only from a Chrome browser to Android devices.
 ## How to use
 ### Installation
 1. Add the package: `meteor add femiveys:browser-push-notifications`
-2. Set the Google API key (see below)
+2. Set the Google API key (see [Google API key](#abcd))
 3. Copy the Service Worker to the `/public` of your application
 
-## Google API key
+## <a name="abcd"></a>Google API key
 The preferred way to set your google API key is to use the `Meteor.settings` mechanism. See http://docs.meteor.com/#/full/meteor_settings.
 Start the Meteor instance with the `--settings` option. See `meteor help run` and `meteor mhelp deploy`.
 The packacge expects the key to be under `serviceConfigurations.google.key` in a settings JSON file. *I believe this should become the standard place to put API keys.*
@@ -97,4 +97,4 @@ If you want to test this, you can uncomment the last line in `lib/both/constants
 If anybody knows how to make this to work, help is welcome.
 
 ### Credits
-This code has been based on the code from (https://github.com/taromero/meteor-chrome-push-notifications) but has been seroiously adapted and completed.
+This code has been based on the code from https://github.com/taromero/meteor-chrome-push-notifications but has been seroiously adapted and completed.
