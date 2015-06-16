@@ -12,11 +12,11 @@ Package.onUse(function(api) {
   api.versionsFrom('1.1.0.1');
   api.use('templating');
   api.use('http');
-  api.use('iron:router');
+  api.use('iron:router@1.0.9');
   api.use('mongo');
-  api.use('aldeed:simple-schema');
-  api.use('mrt:cookies');
-  api.use('thepumpinglemma:cookies');
+  api.use('aldeed:simple-schema@1.3.3');
+  api.use('mrt:cookies@0.3.0');
+  api.use('thepumpinglemma:cookies@1.0.0');
   api.use('force-ssl'); // TODO: make it a soft dependency
 
   api.addFiles(
